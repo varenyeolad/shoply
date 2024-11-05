@@ -42,7 +42,7 @@ class _AccountScreenState extends State<AccountScreen> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.white,
+              Colors.lightBlueAccent,
               Colors.white,
             ],
             begin: Alignment.topCenter,

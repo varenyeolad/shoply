@@ -8,6 +8,7 @@ import 'package:shoply/screens/product_details.dart';
 class CategoryView extends StatefulWidget {
   final CategoryModel categoryModel;
   const CategoryView({super.key, required this.categoryModel});
+  
 
   @override
   State<CategoryView> createState() => _CategoryViewState();
@@ -43,7 +44,7 @@ class _CategoryViewState extends State<CategoryView> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.lightBlueAccent.withOpacity(0.8),
+              Colors.white,
               Colors.white.withOpacity(0.9),
             ],
             begin: Alignment.topLeft,
@@ -53,7 +54,7 @@ class _CategoryViewState extends State<CategoryView> {
         child: isLoading
             ? const Center(
                 child: CircularProgressIndicator(
-                  color: Colors.white,
+                  color: Colors.black,
                   strokeWidth: 2.5,
                 ),
               )
@@ -67,7 +68,7 @@ class _CategoryViewState extends State<CategoryView> {
                       const SizedBox(height: kToolbarHeight),
                       Row(
                         children: [
-                          const BackButton(color: Colors.white),
+                          const BackButton(color: Colors.black),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
@@ -130,7 +131,7 @@ class _CategoryViewState extends State<CategoryView> {
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
-                                        color: Colors.white,
+                                        color: Color.fromARGB(255, 244, 244, 244),
                                       ),
                                       child: Column(
                                         mainAxisAlignment:
@@ -165,7 +166,7 @@ class _CategoryViewState extends State<CategoryView> {
                                           Text(
                                             "Rs: ${singleProduct.price}",
                                             style: const TextStyle(
-                                              color: Colors.lightBlueAccent,
+                                              color:  Color.fromARGB(255, 120, 190, 156),
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14.0,
                                             ),
@@ -178,7 +179,7 @@ class _CategoryViewState extends State<CategoryView> {
                                 );
                               },
                             ),
-                      const SizedBox(height: 20.0),
+                      const SizedBox(height:60.0),
                     ],
                   ),
                 ),

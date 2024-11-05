@@ -24,11 +24,7 @@ class _CartScreenState extends State<CartScreen> {
             ? 200.0
             : 150.0, // Adjust height based on screen width
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.lightBlueAccent, Colors.blueAccent],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+          color: Colors.white
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -55,15 +51,15 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 15.0),
               SizedBox(
                 height: 50,
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor:  Color.fromARGB(255, 155, 245, 201),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(42),
                     ),
                   ),
                   onPressed: () {
@@ -84,7 +80,7 @@ class _CartScreenState extends State<CartScreen> {
                   child: const Text(
                     "Checkout",
                     style: TextStyle(
-                      color: Colors.lightBlueAccent,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
@@ -101,17 +97,17 @@ class _CartScreenState extends State<CartScreen> {
         title: const Text(
           "Your Cart",
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 24,
           ),
         ),
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Colors.white,
       ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.lightBlueAccent, Colors.blueAccent],
+            colors: [Colors.white, Colors.white],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -119,10 +115,10 @@ class _CartScreenState extends State<CartScreen> {
         child: appProvider.getCartProductList.isEmpty
             ? const Center(
                 child: Text(
-                  "Cart is Empty",
+                  "Yout Cart is Empty",
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
+                    color: Colors.black,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

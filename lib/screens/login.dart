@@ -68,7 +68,7 @@ class _LoginState extends State<Login> {
                     boxShadow: const [
                       BoxShadow(
                 
-                        blurRadius: 10,
+                        blurRadius: 2,
                         offset: Offset(0, 2),
                       ),
                     ],

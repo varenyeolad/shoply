@@ -27,29 +27,29 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
   List<PersistentBottomNavBarItem> _navBarsItems() => [
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.home),
-          activeColorPrimary: Colors.lightBlueAccent,
-          inactiveColorPrimary: Colors.white,
+          activeColorPrimary:  Color.fromARGB(255, 155, 245, 201),
+          inactiveColorPrimary: Colors.black,
           inactiveColorSecondary: Colors.purple,
           textStyle: const TextStyle(fontWeight: FontWeight.bold),
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.shopping_cart),
-          activeColorPrimary: Colors.lightBlueAccent,
-          inactiveColorPrimary: Colors.white,
+          activeColorPrimary:  Color.fromARGB(255, 155, 245, 201),
+          inactiveColorPrimary: Colors.black,
           inactiveColorSecondary: Colors.purpleAccent,
           textStyle: const TextStyle(fontWeight: FontWeight.bold),
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.favorite_outline),
-          activeColorPrimary: Colors.lightBlueAccent,
-          inactiveColorPrimary: Colors.white,
+          activeColorPrimary:  Color.fromARGB(255, 155, 245, 201),
+          inactiveColorPrimary: Colors.black,
           inactiveColorSecondary: Colors.redAccent,
           textStyle: const TextStyle(fontWeight: FontWeight.bold),
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.person),
-          activeColorPrimary: Colors.lightBlueAccent,
-          inactiveColorPrimary: Colors.white,
+          activeColorPrimary:  Color.fromARGB(255, 155, 245, 201),
+          inactiveColorPrimary: Colors.black,
           inactiveColorSecondary: Colors.orangeAccent,
           textStyle: const TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -65,22 +65,20 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
         items: _navBarsItems(),
         resizeToAvoidBottomInset: true,
         backgroundColor:
-            Colors.transparent, // Transparent background for gradient effect
+            const Color.fromARGB(255, 255, 255, 255), // Transparent background for gradient effect
         navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
             ? 0.0
             : kBottomNavigationBarHeight,
         decoration: NavBarDecoration(
-          borderRadius: BorderRadius.circular(15.0),
           colorBehindNavBar: Colors.white, // Color behind the gradient
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8,
+              color: Colors.black.withOpacity(0.05),
               offset: const Offset(0, -2),
             ),
           ],
         ),
-        navBarStyle: NavBarStyle.style6, // Choose the modern style
+        navBarStyle: NavBarStyle.style4, // Choose the modern style
       ),
     );
   }

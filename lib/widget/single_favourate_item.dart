@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shoply/constants/constants.dart';
 import 'package:shoply/models/product_model.dart';
 import 'package:shoply/provider/app_provider.dart';
 
@@ -10,92 +9,84 @@ class SingleFavourateItem extends StatefulWidget {
   const SingleFavourateItem({super.key, required this.singleProduct});
 
   @override
-  State<SingleFavourateItem> createState() => _SingleFavourateItem();
+  State<SingleFavourateItem> createState() => _SingleFavourateItemState();
 }
 
-class _SingleFavourateItem extends State<SingleFavourateItem> {
+class _SingleFavourateItemState extends State<SingleFavourateItem> {
   @override
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(context);
     return Container(
-      margin: const EdgeInsets.only(bottom: 12.0),
+      // margin: const EdgeInsets.only(bottom: 12.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: Colors.white, width: 2),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade300), // Optional: light border
       ),
-      child: Row(
-        children: [
-          //the image part of item in listview.
-
-          Expanded(
-              child: Container(
-                  height: 140,
-                  color: Colors.white.withOpacity(0.5),
-                  child: Image.network(widget.singleProduct.image))),
-          //the rest space of listview.
-          Expanded(
-            flex: 2,
-            child: FittedBox(
-              child: Container(
-                height: 160,
-                color: Colors.white.withOpacity(0.5),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: FittedBox(
-                    child: Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.singleProduct.name,
-                                  style: const TextStyle(
-                                    fontSize: 12.0,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 3.0,
-                                ),
-                                CupertinoButton(
-                                  onPressed: () {
-                                    appProvider.removeFavourateProductList(
-                                        widget.singleProduct);
-                                    showMessage("Removed from Wishlist");
-                                  },
-                                  child: const Text(
-                                    "Remove from wishlist",
-                                    style: TextStyle(
-                                      fontSize: 10.0,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  "Rs: ${widget.singleProduct.price.toString()}",
-                                  style: const TextStyle(
-                                    fontSize: 10.0,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          children: [
+            // Product Image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                widget.singleProduct.image,
+                height: 100,
+                width: 100,
+                fit: BoxFit.cover,
               ),
             ),
-          )
-        ],
+            const SizedBox(width: 12),
+            // Product Details
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.singleProduct.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Rs: ${widget.singleProduct.price.toString()}",
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      appProvider.removeFavourateProductList(widget.singleProduct);
+                      showMessage("Removed from Wishlist");
+                    },
+                    child: const Text(
+                      "Remove from wishlist",
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  void showMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
     );
   }
 }

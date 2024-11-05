@@ -28,8 +28,7 @@ class SignUp extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.lightBlueAccent
-                  .withOpacity(0.8), // Light blue accent color
+              Color.fromARGB(255, 155, 245, 201).withOpacity(0.8), // Light blue accent color
               Colors.white, // Fade to white
             ],
             begin: Alignment.topCenter,
@@ -53,7 +52,7 @@ class SignUp extends StatelessWidget {
                       const Text(
                         "Create an Account",
                         style: TextStyle(
-                          color: Colors.lightBlueAccent,
+                          color: Color.fromARGB(255, 109, 174, 143),
                           fontWeight: FontWeight.bold,
                           fontSize: 32,
                         ),
@@ -63,7 +62,7 @@ class SignUp extends StatelessWidget {
                       CustomTextField(
                         textEditingController: name,
                         prefixIcon: const Icon(Icons.person_2_outlined,
-                            color: Colors.lightBlueAccent),
+                            color: Color.fromARGB(255, 155, 245, 201)),
                         hintText: 'Name',
                         textInputType: TextInputType.name,
                       ),
@@ -72,7 +71,7 @@ class SignUp extends StatelessWidget {
                       CustomTextField(
                         textEditingController: email,
                         prefixIcon: const Icon(Icons.email_outlined,
-                            color: Colors.lightBlueAccent),
+                            color: Color.fromARGB(255, 155, 245, 201)),
                         hintText: 'Email',
                         textInputType: TextInputType.emailAddress,
                       ),
@@ -81,7 +80,7 @@ class SignUp extends StatelessWidget {
                       CustomTextField(
                         textEditingController: streetAddress,
                         prefixIcon: const Icon(Icons.home,
-                            color: Colors.lightBlueAccent),
+                            color:  Color.fromARGB(255, 155, 245, 201)),
                         hintText: 'Street Address',
                         textInputType: TextInputType.streetAddress,
                       ),
@@ -90,7 +89,7 @@ class SignUp extends StatelessWidget {
                       CustomTextField(
                         textEditingController: password,
                         prefixIcon: const Icon(Icons.lock_outline,
-                            color: Colors.lightBlueAccent),
+                            color:  Color.fromARGB(255, 155, 245, 201)),
                         hintText: 'Password',
                         textInputType: TextInputType.visiblePassword,
                       ),
@@ -99,7 +98,7 @@ class SignUp extends StatelessWidget {
                       CustomTextField(
                         textEditingController: confirmPassword,
                         prefixIcon: const Icon(Icons.lock_outline,
-                            color: Colors.lightBlueAccent),
+                            color:  Color.fromARGB(255, 155, 245, 201)),
                         hintText: 'Confirm Password',
                         textInputType: TextInputType.visiblePassword,
                       ),
@@ -137,7 +136,7 @@ class SignUp extends StatelessWidget {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.lightBlueAccent,
+                            backgroundColor:  Color.fromARGB(255, 155, 245, 201),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
@@ -163,7 +162,7 @@ class SignUp extends StatelessWidget {
                           child: const Text(
                             "Already have an account?",
                             style: TextStyle(
-                              color: Colors.lightBlueAccent,
+                              color:  Color.fromARGB(255, 117, 184, 152),
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
