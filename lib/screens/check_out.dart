@@ -31,7 +31,7 @@ class _CheckOutState extends State<CheckOut> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Checkout"),
-        backgroundColor: Colors.lightBlueAccent, // Consistent color
+        backgroundColor: Color.fromARGB(255, 155, 245, 201), // Consistent color
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
@@ -90,7 +90,7 @@ class _CheckOutState extends State<CheckOut> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.lightBlueAccent,
+                    backgroundColor: Color.fromARGB(255, 155, 245, 201),
                   ),
                   child: const Text(
                     "Continue",
@@ -123,7 +123,7 @@ class _CheckOutState extends State<CheckOut> {
         height: 80.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40.0),
-          border: Border.all(color: Colors.lightBlueAccent, width: 3.0),
+          border: Border.all(color: Color.fromARGB(255, 155, 245, 201), width: 3.0),
         ),
         child: Row(
           children: [
@@ -137,7 +137,7 @@ class _CheckOutState extends State<CheckOut> {
               },
             ),
             const SizedBox(width: 12.0),
-            Icon(icon, color: Colors.lightBlueAccent), // Icon color consistency
+            Icon(icon, color: Color.fromARGB(255, 155, 245, 201)), // Icon color consistency
             const SizedBox(width: 24.0),
             Text(
               text,

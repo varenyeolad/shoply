@@ -59,7 +59,7 @@ class Recommended extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          "Rs: ${product.price}",
+                          "${product.price} ₸",
                           style: const TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,

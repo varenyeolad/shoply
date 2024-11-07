@@ -90,6 +90,7 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 23.0,
                               color: Colors.black,
+                              
                             ),
                           ),
                         ],
@@ -262,12 +263,11 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  Widget _buildProductItem(ProductModel product) {
+Widget _buildProductItem(ProductModel product) {
   return Container(
     decoration: BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(15),  // Rounded corners for the card
+      borderRadius: BorderRadius.circular(15),  
       boxShadow: [
         BoxShadow(
           color: Colors.grey.withOpacity(0.2),
@@ -278,19 +278,19 @@ class _HomePageState extends State<HomePage> {
       ],
     ),
     child: Padding(
-      padding: const EdgeInsets.all(12.0),  // Adds padding inside the card
+      padding: const EdgeInsets.all(12.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: Center(
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),  // Rounded corners for the image
+                borderRadius: BorderRadius.circular(8),
                 child: Image.network(
                   product.image,
                   height: 120,
                   width: 120,
-                  fit: BoxFit.cover,  // Fills the available space
+                  fit: BoxFit.cover,  
                 ),
               ),
             ),
@@ -304,19 +304,24 @@ class _HomePageState extends State<HomePage> {
               fontWeight: FontWeight.w600,
             ),
             textAlign: TextAlign.start,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1, 
           ),
           const SizedBox(height: 5),
           Text(
-            "Rs: ${product.price}",
+            "${(product.price*480).toInt()}\₸",
             style: const TextStyle(
               color: Colors.black87,
               fontWeight: FontWeight.bold,
               fontSize: 16.0,
             ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1, 
           ),
         ],
       ),
     ),
   );
 }
+
 }

@@ -68,7 +68,7 @@ class _CartItemCheckOutState extends State<CartItemCheckOut> {
                   await handlePayment(appProvider);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.lightBlueAccent,
+                  backgroundColor: const Color.fromARGB(255, 155, 245, 201),
                 ),
                 child: const Text(
                   "Continue",
@@ -93,7 +93,7 @@ class _CartItemCheckOutState extends State<CartItemCheckOut> {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        border: Border.all(color: Colors.lightBlueAccent, width: 2.0),
+        border: Border.all(color: const Color.fromARGB(255, 155, 245, 201), width: 2.0),
       ),
       child: Row(
         children: [
@@ -107,7 +107,7 @@ class _CartItemCheckOutState extends State<CartItemCheckOut> {
             },
           ),
           const SizedBox(width: 12.0),
-          Icon(icon, color: Colors.lightBlueAccent),
+          Icon(icon, color: const Color.fromARGB(255, 155, 245, 201)),
           const SizedBox(width: 16.0),
           Expanded(
             child: Text(
@@ -126,8 +126,7 @@ class _CartItemCheckOutState extends State<CartItemCheckOut> {
   Future<void> handlePayment(AppProvider appProvider) async {
     switch (groupValue) {
       case 1: // Cash on Delivery
-        bool value =
-            await FirebaseFirestoreHelper.instance.uploadOrderedProductFirebase(
+        bool value = await FirebaseFirestoreHelper.instance.uploadOrderedProductFirebase(
           appProvider.getBuyProductList,
           context,
           "Cash On Delivery",
@@ -140,12 +139,10 @@ class _CartItemCheckOutState extends State<CartItemCheckOut> {
         }
         break;
       case 2: // Online Payment
-        double totalprice = appProvider.totalPrice() * 100;
-        bool isSuccessfullyPayment =
-            await StripeHelper.instance.makePayment(totalprice.toString());
+        double totalPrice = appProvider.totalPrice() * 100;
+        bool isSuccessfullyPayment = await StripeHelper.instance.makePayment(totalPrice.toString());
         if (isSuccessfullyPayment) {
-          bool value = await FirebaseFirestoreHelper.instance
-              .uploadOrderedProductFirebase(
+          bool value = await FirebaseFirestoreHelper.instance.uploadOrderedProductFirebase(
             appProvider.getBuyProductList,
             context,
             "Paid",

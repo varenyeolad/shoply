@@ -8,7 +8,6 @@ import 'package:shoply/screens/product_details.dart';
 class CategoryView extends StatefulWidget {
   final CategoryModel categoryModel;
   const CategoryView({super.key, required this.categoryModel});
-  
 
   @override
   State<CategoryView> createState() => _CategoryViewState();
@@ -131,21 +130,23 @@ class _CategoryViewState extends State<CategoryView> {
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
-                                        color: Color.fromARGB(255, 244, 244, 244),
+                                        color: const Color.fromARGB(255, 244, 244, 244),
                                       ),
                                       child: Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                            MainAxisAlignment.start,
                                         children: [
                                           const SizedBox(height: 10.0),
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: Image.network(
-                                              singleProduct.image,
-                                              height: 120,
-                                              width: 120,
-                                              fit: BoxFit.cover,
+                                          FittedBox(
+                                            fit: BoxFit.contain,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                BorderRadius.circular(8),
+                                              child: Image.network(
+                                                singleProduct.image,
+                                                height: 120,
+                                                width: 120,
+                                              ),
                                             ),
                                           ),
                                           const SizedBox(height: 10.0),
@@ -160,13 +161,15 @@ class _CategoryViewState extends State<CategoryView> {
                                                 color: Colors.black87,
                                               ),
                                               textAlign: TextAlign.center,
+                                              overflow: TextOverflow.ellipsis, 
+                                              maxLines: 1,
                                             ),
                                           ),
                                           const SizedBox(height: 8.0),
                                           Text(
-                                            "Rs: ${singleProduct.price}",
+                                            "${singleProduct.price}₸",
                                             style: const TextStyle(
-                                              color:  Color.fromARGB(255, 120, 190, 156),
+                                              color: Colors.black,
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14.0,
                                             ),
@@ -179,7 +182,7 @@ class _CategoryViewState extends State<CategoryView> {
                                 );
                               },
                             ),
-                      const SizedBox(height:60.0),
+                      const SizedBox(height: 60.0),
                     ],
                   ),
                 ),

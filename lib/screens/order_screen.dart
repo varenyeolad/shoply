@@ -51,7 +51,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     ),
                     shape: const RoundedRectangleBorder(
                       side:
-                          BorderSide(color: Colors.lightBlueAccent, width: 2.3),
+                          BorderSide(color: Color.fromARGB(255, 46, 187, 175), width: 2.3),
                     ),
                     title: Row(
                       children: [
@@ -78,7 +78,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                             color: Colors.black)),
                                     const SizedBox(height: 2.0),
                                     Text(
-                                      "Rs: ${orderModel.totalPrice}",
+                                      "${orderModel.totalPrice} ₸",
                                       style:
                                           const TextStyle(color: Colors.black),
                                     ),
@@ -129,7 +129,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     children: orderModel.products.length > 1
                         ? [
                             const Text("Order Details"),
-                            const Divider(color: Colors.lightBlueAccent),
+                            const Divider(color: Color.fromARGB(255, 46, 187, 175)),
                             ...orderModel.products.map((singleProduct) {
                               return Padding(
                                 padding: const EdgeInsets.all(12.0),

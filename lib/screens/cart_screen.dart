@@ -42,7 +42,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                   Text(
-                    "Rs ${appProvider.totalPrice().toString()}",
+                    "${appProvider.totalPrice().toString()}₸",
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -57,7 +57,7 @@ class _CartScreenState extends State<CartScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:  Color.fromARGB(255, 155, 245, 201),
+                    backgroundColor:  const Color.fromARGB(255, 155, 245, 201),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(42),
                     ),
@@ -117,10 +117,10 @@ class _CartScreenState extends State<CartScreen> {
                 child: Text(
                   "Yout Cart is Empty",
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+              color: Color.fromARGB(255, 46, 187, 175),
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
                 ),
               )
             : ListView.builder(

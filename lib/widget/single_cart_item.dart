@@ -25,11 +25,9 @@ class _SingleCartItemState extends State<SingleCartItem> {
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(context);
     return Container(
-
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-       // Optional: light border
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
@@ -48,78 +46,81 @@ class _SingleCartItemState extends State<SingleCartItem> {
             const SizedBox(width: 12),
             // Product Details
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.singleProduct.name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.singleProduct.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.0,
+                      ),
+                      overflow: TextOverflow.ellipsis, 
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  // Quantity Controls
-                  Row(
-                    children: [
-                      CupertinoButton(
-                        onPressed: () {
-                          if (qty > 1) {
+                    const SizedBox(height: 8),
+                    // Quantity Controls
+                    Row(
+                      children: [
+                        CupertinoButton(
+                          onPressed: () {
+                            if (qty > 1) {
+                              setState(() {
+                                qty--;
+                              });
+                              appProvider.updateQty(widget.singleProduct, qty);
+                            }
+                          },
+                          padding: EdgeInsets.zero,
+                          child: const CircleAvatar(
+                            maxRadius: 13,
+                            backgroundColor: Color.fromARGB(255, 155, 245, 201),
+                            child: Icon(
+                              Icons.remove,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          qty.toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        CupertinoButton(
+                          onPressed: () {
                             setState(() {
-                              qty--;
+                              qty++;
                             });
                             appProvider.updateQty(widget.singleProduct, qty);
-                          }
-                        },
-                        padding: EdgeInsets.zero,
-                        child: const CircleAvatar(
-                          maxRadius: 13,
-                          backgroundColor: Color.fromARGB(255, 155, 245, 201),
-                          child: Icon(
-                            Icons.remove,
-                            color: Colors.white,
+                          },
+                          padding: EdgeInsets.zero,
+                          child: const CircleAvatar(
+                            maxRadius: 13,
+                            backgroundColor: Color.fromARGB(255, 155, 245, 201),
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        qty.toString(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      CupertinoButton(
-                        onPressed: () {
-                          setState(() {
-                            qty++;
-                          });
-                          appProvider.updateQty(widget.singleProduct, qty);
-                        },
-                        padding: EdgeInsets.zero,
-                        child: const CircleAvatar(
-                          maxRadius: 13,
-                          backgroundColor: Color.fromARGB(255, 155, 245, 201),
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  // Price
-                  Text(
-                    "${widget.singleProduct.price.toString()} Tg",
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 1, 1, 1),
+                      ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    // Price
+                    Text(
+                      "${widget.singleProduct.price.toString()} Tg",
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 1, 1, 1),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             // Wishlist and Delete Buttons

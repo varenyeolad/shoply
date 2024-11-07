@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
                       children: [
                         Center(
                           child: CircularProgressIndicator(
-                            color: Colors.lightBlueAccent,
+                            color: Color.fromARGB(255, 46, 187, 175),
                           ),
                         )
                       ],

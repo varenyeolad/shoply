@@ -1,5 +1,3 @@
-// ignore_for_file: unused_local_variable
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,132 +20,98 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     AppProvider appProvider = Provider.of<AppProvider>(context);
-    final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
           "Account",
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 24,
+            fontSize: 20,
           ),
         ),
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.lightBlueAccent,
-              Colors.white,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: Column(
-          children: [
-            // Profile Section
-            Expanded(
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  _buildProfileAvatar(appProvider),
-                  const SizedBox(height: 10),
-                  _buildProfileName(appProvider),
-                  _buildProfileEmail(appProvider),
-                ],
-              ),
-            ),
-            // Account Menu
-            Expanded(
-              flex: 2,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    _buildCustomListTile(
-                      icon: Icons.shopping_bag_outlined,
-                      title: "Orders",
-                      onTap: () {
-                        Routes().push(const OrderScreen(), context);
-                      },
-                    ),
-                    _buildCustomListTile(
-                      icon: Icons.favorite_outline,
-                      title: "Favourites",
-                      onTap: () {
-                        Routes().push(const FavourateScreen(), context);
-                      },
-                    ),
-                    _buildCustomListTile(
-                      icon: Icons.info_outline,
-                      title: "About Us",
-                      onTap: () {},
-                    ),
-                    _buildCustomListTile(
-                      icon: Icons.support,
-                      title: "Support",
-                      onTap: () {},
-                    ),
-                    _buildCustomListTile(
-                      icon: Icons.security_outlined,
-                      title: "Change Password",
-                      onTap: () {
-                        Routes().push(const ChangePassword(), context);
-                      },
-                    ),
-                    _buildCustomListTile(
-                      icon: Icons.logout_outlined,
-                      title: "Logout",
-                      onTap: () {
-                        FirebaseAuthHelper.instance.signOut();
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              ),
-            ),
-          ],
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-    );
-  }
-
-  Widget _buildProfileAvatar(AppProvider appProvider) {
-    return SizedBox(
-      width: 120,
-      height: 120,
-      child: Stack(
+      body: Column(
         children: [
-          appProvider.getUserInformation.image == null
-              ? const CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.grey,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 60,
-                  ),
-                )
-              : CircleAvatar(
-                  radius: 60,
-                  backgroundImage:
-                      NetworkImage(appProvider.getUserInformation.image!),
+          // Profile Section
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                _buildProfileAvatar(appProvider),
+                const SizedBox(height: 10),
+                _buildProfileName(appProvider),
+                _buildProfileEmail(appProvider),
+              ],
+            ),
+          ),
+          const Divider(thickness: 1, color: Colors.grey),
+          // Account Menu
+          Expanded(
+            child: ListView(
+              children: [
+                _buildCustomListTile(
+                  title: "Orders",
+                  icon: Icons.shopping_bag_outlined,
+                  onTap: () {
+                    Routes().push(const OrderScreen(), context);
+                  },
                 ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: CupertinoButton(
-              child: const Icon(Icons.edit, color: Colors.black),
-              onPressed: () {
-                Routes().push(const EditProfile(), context);
-              },
+                _buildCustomListTile(
+                  title: "Favourites",
+                  icon: Icons.favorite_outline,
+                  onTap: () {
+                    Routes().push(const FavourateScreen(), context);
+                  },
+                ),
+                _buildCustomListTile(
+                  title: "Edit Profile",
+                  icon: Icons.edit,
+                  onTap: () {
+                    Routes().push(const EditProfile(), context);
+                  },
+                ),
+                _buildCustomListTile(
+                  title: "Change Password",
+                  icon: Icons.security_outlined,
+                  onTap: () {
+                    Routes().push(const ChangePassword(), context);
+                  },
+                ),
+                _buildCustomListTile(
+                  title: "About Us",
+                  icon: Icons.info_outline,
+                  onTap: () {},
+                ),
+                _buildCustomListTile(
+                  title: "Support",
+                  icon: Icons.support_agent,
+                  onTap: () {},
+                ),
+                const Divider(thickness: 1, color: Colors.grey),
+                ListTile(
+                  leading: const Icon(Icons.logout, color: Colors.red),
+                  title: const Text(
+                    "Sign Out",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.red,
+                    ),
+                  ),
+                  onTap: () {
+                    FirebaseAuthHelper.instance.signOut();
+                  },
+                ),
+              ],
             ),
           ),
         ],
@@ -155,11 +119,23 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
+  Widget _buildProfileAvatar(AppProvider appProvider) {
+    return CircleAvatar(
+      radius: 40,
+      backgroundImage: appProvider.getUserInformation.image != null
+          ? NetworkImage(appProvider.getUserInformation.image!)
+          : null,
+      child: appProvider.getUserInformation.image == null
+          ? const Icon(Icons.person, size: 40, color: Colors.grey)
+          : null,
+    );
+  }
+
   Widget _buildProfileName(AppProvider appProvider) {
     return Text(
       appProvider.getUserInformation.name,
       style: const TextStyle(
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
@@ -170,39 +146,28 @@ class _AccountScreenState extends State<AccountScreen> {
     return Text(
       appProvider.getUserInformation.email,
       style: const TextStyle(
-        fontSize: 16,
+        fontSize: 14,
         color: Colors.black54,
       ),
     );
   }
 
   Widget _buildCustomListTile({
-    required IconData icon,
     required String title,
+    required IconData icon,
     required VoidCallback onTap,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      child: Material(
-        elevation: 2,
-        borderRadius: BorderRadius.circular(12.0),
-        child: ListTile(
-          leading: Icon(
-            icon,
-            color: Colors.lightBlueAccent,
-          ),
-          title: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: Colors.black87,
-            ),
-          ),
-          trailing: const Icon(Icons.arrow_forward_ios, size: 18),
-          onTap: onTap,
+    return ListTile(
+      leading: Icon(icon, color: Colors.black54),
+      title: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 16,
+          color: Colors.black87,
         ),
       ),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.grey),
+      onTap: onTap,
     );
   }
 }

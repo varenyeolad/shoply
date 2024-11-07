@@ -25,7 +25,7 @@ class Welcome extends StatelessWidget {
             height: 12.0,
           ),
           const Text(
-            "Thank You For Selecting us!",
+            "Thank You For Choosing us!",
             style: TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.bold,

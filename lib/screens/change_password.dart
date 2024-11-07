@@ -1,5 +1,3 @@
-// ignore_for_file: unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:shoply/Firebase/firebase_auth.dart';
 import 'package:shoply/constants/constants.dart';
@@ -18,56 +16,38 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           "Change Password",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Colors.white,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.lightBlueAccent, Colors.blueAccent],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        color: Colors.white,
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
             child: Card(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(16),
               ),
-              elevation: 5,
+              elevation: 2,
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                      "Update Your Password",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.lightBlueAccent,
-                      ),
-                    ),
+                    buildPasswordField("New Password", newpassword, isShowPassword),
                     const SizedBox(height: 20),
-                    buildPasswordField(
-                        "New Password", newpassword, isShowPassword),
-                    const SizedBox(height: 20),
-                    buildPasswordField(
-                        "Confirm Password", confpassword, isShowPassword),
+                    buildPasswordField("Confirm Password", confpassword, isShowPassword),
                     const SizedBox(height: 30),
                     SizedBox(
                       width: double.infinity,
@@ -78,18 +58,16 @@ class _ChangePasswordState extends State<ChangePassword> {
                           } else if (confpassword.text.isEmpty) {
                             showMessage("Please confirm your password");
                           } else if (confpassword.text == newpassword.text) {
-                            FirebaseAuthHelper.instance
-                                .changePassword(newpassword.text, context);
+                            FirebaseAuthHelper.instance.changePassword(newpassword.text, context);
                           } else {
                             showMessage("Passwords do not match");
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 32),
-                          backgroundColor: Colors.lightBlueAccent,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          backgroundColor:  Colors.white,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(32),
                           ),
                         ),
                         child: const Text(
@@ -112,19 +90,18 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-  Widget buildPasswordField(
-      String hint, TextEditingController controller, bool isVisible) {
+  Widget buildPasswordField(String hint, TextEditingController controller, bool isVisible) {
     return TextFormField(
       controller: controller,
       obscureText: isVisible,
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(color: Colors.grey),
-        prefixIcon: const Icon(Icons.lock, color: Colors.lightBlueAccent),
+        prefixIcon: const Icon(Icons.lock, color: Color(0xFF9BF5C9)),
         suffixIcon: IconButton(
           icon: Icon(
             isVisible ? Icons.visibility : Icons.visibility_off,
-            color: Colors.lightBlueAccent,
+            color: const Color(0xFF9BF5C9),
           ),
           onPressed: () {
             setState(() {
@@ -133,17 +110,22 @@ class _ChangePasswordState extends State<ChangePassword> {
           },
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.lightBlueAccent),
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: Colors.grey),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(width: 2, color: Colors.lightBlueAccent),
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(width: 2, color: Color(0xFF9BF5C9)),
         ),
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       ),
       keyboardType: TextInputType.visiblePassword,
+    );
+  }
+
+  void showMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
     );
   }
 }

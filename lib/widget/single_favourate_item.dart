@@ -53,7 +53,7 @@ class _SingleFavourateItemState extends State<SingleFavourateItem> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Rs: ${widget.singleProduct.price.toString()}",
+                    "${widget.singleProduct.price.toString()}₸",
                     style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,

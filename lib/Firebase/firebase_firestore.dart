@@ -59,7 +59,7 @@ class FirebaseFirestoreHelper {
       for (var interaction in similarFavoritesSnapshot.docs) {
         String similarProductId = interaction["productId"];
         recommendedProductIds.add(similarProductId);
-        print("Added to recommendations: $similarProductId");
+        // print("Added to recommendations: $similarProductId");
       }
     }
 
@@ -91,13 +91,13 @@ class FirebaseFirestoreHelper {
               description: productData["description"],
               isFavourate: productData["isFavourate"]));
         } else {
-          print("Incomplete product data, skipping: ${productData}");
+          // print("Incomplete product data, skipping: ${productData}");
         }
       }
     }
 
-    print(
-        "Final recommendedProducts: ${recommendedProducts.map((p) => p.name).toList()}");
+    // print(
+    //     "Final recommendedProducts: ${recommendedProducts.map((p) => p.name).toList()}");
 
     return recommendedProducts;
   }

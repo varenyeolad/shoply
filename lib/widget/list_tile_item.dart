@@ -18,6 +18,7 @@ class CustomListTile extends StatelessWidget {
           leading: leadingIcon,
           title: Text(
             title,
+            overflow: TextOverflow.ellipsis, 
             style: const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
