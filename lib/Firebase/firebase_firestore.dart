@@ -28,8 +28,11 @@ class FirebaseFirestoreHelper {
       return [];
     }
   }
-
   Future<List<ProductModel>> recommendProductsBasedOnFavorites() async {
+    print("Starting performance test with 100 products");
+
+    // Start timer
+    final startTime = DateTime.now();
     String uid = FirebaseAuth.instance.currentUser!.uid;
 
     // Step 1: Fetch user's favorite products
@@ -44,10 +47,10 @@ class FirebaseFirestoreHelper {
     List<String> userFavoriteProductIds = userFavoriteSnapshot.docs
         .map((doc) => doc["productId"] as String)
         .toList();
+    print("User's favorite products: $userFavoriteProductIds");
 
-    // Step 2: Find other users who favorited the same products
-    Set<String> recommendedProductIds =
-        {}; // Using a set to keep products unique
+    // Step 2: Find other users who favorited the same products and assign weights
+    Map<String, int> productWeights = {}; // Map to store products and their weights
     for (var productId in userFavoriteProductIds) {
       QuerySnapshot similarFavoritesSnapshot = await _firebaseFirestore
           .collectionGroup("interactions") // Querying across all interactions
@@ -55,17 +58,29 @@ class FirebaseFirestoreHelper {
           .where("isFavourate", isEqualTo: true)
           .get();
 
-      // Add each similar product ID to the recommendedProductIds set
+      print("similarFavoritesSnapshot for productId $productId: ${similarFavoritesSnapshot.docs.map((doc) => doc.data())}");
+
+      // For each product in similar users' favorites, increase the weight
       for (var interaction in similarFavoritesSnapshot.docs) {
         String similarProductId = interaction["productId"];
-        recommendedProductIds.add(similarProductId);
-        // print("Added to recommendations: $similarProductId");
+
+        // Increase the weight for the product (including the user's favorites for testing)
+        productWeights.update(similarProductId, (weight) => weight + 1, ifAbsent: () => 1);
+        print("Added weight for product: $similarProductId, current weight: ${productWeights[similarProductId]}");
       }
     }
 
-    // Step 3: Fetch details of recommended products
+    print("Product weights: $productWeights");
+
+    // Sort the product IDs by their weights in descending order
+    List<String> sortedProductIds = productWeights.keys.toList()
+      ..sort((a, b) => productWeights[b]!.compareTo(productWeights[a]!));
+
+    print("Sorted product IDs by weight: $sortedProductIds");
+
+    // Step 3: Fetch details of recommended products based on sorted IDs
     List<ProductModel> recommendedProducts = [];
-    for (var productId in recommendedProductIds) {
+    for (var productId in sortedProductIds) {
       QuerySnapshot productDocSnapshot = await _firebaseFirestore
           .collectionGroup("products")
           .where("id", isEqualTo: productId)
@@ -74,8 +89,8 @@ class FirebaseFirestoreHelper {
       if (productDocSnapshot.docs.isNotEmpty) {
         var productDoc = productDocSnapshot.docs.first;
         Map<String, dynamic>? productData =
-            productDoc.data() as Map<String, dynamic>?;
-
+        productDoc.data() as Map<String, dynamic>?;
+        //
         if (productData != null &&
             productData["id"] != null &&
             productData["name"] != null &&
@@ -90,17 +105,31 @@ class FirebaseFirestoreHelper {
               price: productData["price"],
               description: productData["description"],
               isFavourate: productData["isFavourate"]));
+          print("Added recommended product: ${productData["name"]}");
         } else {
-          // print("Incomplete product data, skipping: ${productData}");
+          print("Incomplete product data, skipping: ${productData}");
         }
+      } else {
+        print("No product data found for ID: $productId");
       }
     }
 
-    // print(
-    //     "Final recommendedProducts: ${recommendedProducts.map((p) => p.name).toList()}");
+    print("Final recommended products: ${recommendedProducts.map((p) => p.name).toList()}");
+
+    // End timer
+    final endTime = DateTime.now();
+    final duration = endTime.difference(startTime);
+
+    // Print results
+    print("Performance test completed with 100 products");
+    print("Time taken: ${duration.inMilliseconds} ms");
+    print("Number of recommended products: ${recommendedProducts.length}");
 
     return recommendedProducts;
   }
+
+
+
 
   Future<void> logUserFavoriteInteraction(
       String productId, bool isFavourate) async {
